@@ -14,6 +14,16 @@ export const generatePasswordResetToken = async (email: string) => {
             where: { id: existingToken.id }
         });
     }
+
+    const passwordResetToken = await db.passwordResetToken.create({
+        data: {
+            email,
+            token,
+            expires
+        }
+    });
+
+    return passwordResetToken;
 }
 
 export const generateVerificationToken = async (email: string) => {
